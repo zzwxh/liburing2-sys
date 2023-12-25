@@ -2,3 +2,9 @@
 name = "liburing2-sys"
 version = "0.1.0"
 edition = "2021"
+
+[build-dependencies]
+bindgen = "0.69"
+
+[features]
+lto = []
