@@ -1,7 +1,12 @@
 [package]
 name = "liburing2-sys"
-version = "0.1.0"
+version = "0.1.0+f4e42a5"
 edition = "2021"
+description = "liburing bindings with optional LTO"
+readme = "README.md"
+repository = "https://github.com/zzwxh/liburing2-sys"
+license = "MIT"
+links = "uring-ffi"
 
 [build-dependencies]
 bindgen = "0.69"
