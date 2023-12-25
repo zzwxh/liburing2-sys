@@ -9,13 +9,14 @@ use liburing2_sys::{
 fn nop() {
     unsafe {
         let mut ring = zeroed();
-        io_uring_queue_init(1, &mut ring, 0);
+        assert_eq!(io_uring_queue_init(1, &mut ring, 0), 0);
         let sqe = io_uring_get_sqe(&mut ring);
+        assert!(!sqe.is_null());
         io_uring_prep_nop(sqe);
         io_uring_sqe_set_data64(sqe, 114514);
-        io_uring_submit(&mut ring);
+        assert_eq!(io_uring_submit(&mut ring), 1);
         let mut cqe = null_mut();
-        io_uring_wait_cqe(&mut ring, &mut cqe);
+        assert_eq!(io_uring_wait_cqe(&mut ring, &mut cqe), 0);
         let data = io_uring_cqe_get_data64(cqe);
         assert_eq!(data, 114514);
     }
