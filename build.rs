@@ -36,6 +36,7 @@ cp liburing-ffi.a ../../liburing2-sys.a
     let include_dir = format!("{out_dir}/build/src/include");
     let ffi_c = format!("{out_dir}/build/src/ffi.c");
     let liburing_h = format!("{out_dir}/build/src/include/liburing.h");
+    let io_uring_h = format!("{out_dir}/build/src/include/liburing/io_uring.h");
     let bindings_rs = format!("{out_dir}/bindings.rs");
 
     bindgen::Builder::default()
@@ -43,9 +44,13 @@ cp liburing-ffi.a ../../liburing2-sys.a
         .clang_arg(include_dir)
         .header(ffi_c)
         .allowlist_file(liburing_h)
+        .allowlist_file(io_uring_h)
         .layout_tests(false)
         .merge_extern_blocks(true)
+        .sort_semantically(true)
         .default_non_copy_union_style(bindgen::NonCopyUnionStyle::ManuallyDrop)
+        .default_enum_style(bindgen::EnumVariation::ModuleConsts)
+        .use_core()
         .generate()
         .unwrap()
         .write_to_file(bindings_rs)
