@@ -1,6 +1,6 @@
 [package]
 name = "liburing2-sys"
-version = "0.1.0+f4e42a5"
+version = "0.2.0+f4e42a5"
 edition = "2021"
 description = "liburing bindings with optional LTO"
 readme = "README.md"
